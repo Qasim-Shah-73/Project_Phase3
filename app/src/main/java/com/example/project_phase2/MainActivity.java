@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
                     } catch ( IOException e) {
                      e.printStackTrace();
                     }
+                if (All_Days.toString().length()>0)
                     Alert(All_Days.toString());
             }
         });

@@ -56,6 +56,8 @@ public class InputTime extends AppCompatActivity {
                          + timePicker.getMinute()+ " minutes";
            Function_sharedPreference(store);
                 AlarmSet();
+                Intent intent = new Intent(InputTime.this,MainActivity.class);
+                startActivity(intent);
             }
         });
     }

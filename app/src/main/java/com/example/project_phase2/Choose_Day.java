@@ -21,7 +21,6 @@ public class Choose_Day extends AppCompatActivity {
         setContentView(R.layout.activity_choose__day);
 
         init();
-
         next1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -63,7 +62,6 @@ public class Choose_Day extends AppCompatActivity {
         {
             sharedPreferences.edit().putString("Send_day","Sunday").apply();
         }
-
     }
     private void init() {
         RadioGroup radioGroup = findViewById(R.id.radioGroup);

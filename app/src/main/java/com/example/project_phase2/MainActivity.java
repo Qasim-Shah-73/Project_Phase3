@@ -3,9 +3,11 @@ package com.example.project_phase2;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
+import android.app.Application;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -15,16 +17,15 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-
+    SharedPreferences sharedPreferences;
     Button start;
     Button Stop;
     Button show;
-    ArrayList<String> All_Days;
-    SharedPreferences sharedPreferences = this.getSharedPreferences("com.example.project_phase2", MODE_PRIVATE);;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        sharedPreferences = this.getSharedPreferences("com.example.project_phase2", MODE_PRIVATE);
         init();
         Listeners();
     }
@@ -42,33 +43,25 @@ public class MainActivity extends AppCompatActivity {
         show.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try {
-                    All_Days = (ArrayList<String>) ObjectSerialize.deserialize(sharedPreferences.getString("Alarm", ObjectSerialize.serialize(new ArrayList<String>())));
-                    } catch ( IOException e) {
-                     e.printStackTrace();
-                    }
-                if (All_Days.toString().length()>0)
-                    Alert(All_Days.toString());
+                String store= sharedPreferences.getString("Alarm","");
+                Alert(store);
             }
         });
-
-
 
         Stop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            finish();
-            System.exit(0);
+                finish();
+                System.exit(0);
             }
         });
     }
-
 
     private void Alert(String s) {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
         builder.setMessage(s);
-        builder.setTitle("All Alarms are: ");
+        builder.setTitle("Recent Alarms is: ");
         builder.setIcon(R.drawable.image1);
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
@@ -81,10 +74,9 @@ public class MainActivity extends AppCompatActivity {
         alert.show();
     }
 
-
     private void init() {
-    start= findViewById(R.id.next1);
-    Stop = findViewById(R.id.button2);
-    show = findViewById(R.id.show);
+         start= findViewById(R.id.next1);
+         Stop = findViewById(R.id.button2);
+         show = findViewById(R.id.show);
     }
 }
